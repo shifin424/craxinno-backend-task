@@ -3,13 +3,21 @@ import dotenv from 'dotenv';
 dotenv.config();
 import morgan from 'morgan';
 import connectDatabase from './config/database.js';
-import cors from './middleware/security/cors/cors.js'
+// import cors from './middleware/security/cors/cors.js'
 import userRouter from './routes/user.routes.js'
+import cors from 'cors';
 import errorHandler from "./middleware/errors/error.handler.js";
 
 const app = express();
 
-app.use(cors)
+// app.use(cors)
+
+app.use(
+  cors({
+    credentials: true,
+    origin: ['http://localhost:5173','https://craxinno.onrender.com']
+  })
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
