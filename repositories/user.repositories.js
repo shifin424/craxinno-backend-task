@@ -56,6 +56,22 @@ class UserRepository {
             throw new Error('Error authenticating user');
         }
     }
+
+    async findById(userId) {
+        try {
+            return await User.findById(userId);
+        } catch (error) {
+            throw new Error('Error finding user by ID');
+        }
+    }
+
+    async save(user) {
+        try {
+            return await user.save();
+        } catch (error) {
+            throw new Error('Error saving user');
+        }
+    }
 }
 
 export default UserRepository;
