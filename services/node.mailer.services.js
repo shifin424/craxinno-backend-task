@@ -9,7 +9,7 @@ const MailerService = async (userEmail, userId) => {
         html: `
             <p>Thanks for your submission!</p>
             <p>Here is a link to check your submitted information:</p>
-            <a href="http://localhost:5173/user/${userId}">Check Information</a>
+            <a href="https://craxinno-technology.netlify.app/user/${userId}">Check Information</a>
         `,
     };
 
