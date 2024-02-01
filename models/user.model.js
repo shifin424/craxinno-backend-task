@@ -37,7 +37,7 @@ const userSchema = new Schema({
     additionalSavings: {
         type: String,
     },
-    
+
 });
 
 const User = mongoose.model("User", userSchema);

@@ -1,5 +1,5 @@
 import userRepository from "../repositories/user.repositories.js";
-import { generateAccessToken, generateRefreshToken } from "../services/jwt.services.js";
+import { generateAccessToken, generateRefreshToken, verifyToken } from "../services/jwt.services.js";
 import ErrorResponse from "../middleware/errors/error.response.js";
 import MailerService from "../services/node.mailer.services.js";
 
@@ -65,3 +65,35 @@ export const saveAllInfo = async (req, res, next) => {
         return next(error);
     }
 };
+
+
+export const getSavedData = async (req, res, next) => {
+    try {
+        const { id } = req.params
+        console.log(id)
+        const user = await User.findById(id)
+        res.json(user)
+    } catch (error) {
+        console.log(error)
+        return next(error)
+    }
+}
+
+export const refreshToken = async (req, res, next) => {
+    try {
+        const refreshToken = req?.body?.refreshToken;
+        if (!refreshToken) {
+            return res.status(401).json({ message: 'Refresh token not provided' });
+        }
+        const decoded = verifyToken(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+        const user = await User.findById(decoded.id);
+
+        if (!user) {
+            return res.status(401).json({ message: 'User not found' });
+        }
+        const newAccessToken = generateAccessToken({ id: user._id });
+        res.json({ accessToken: newAccessToken });
+    } catch (err) {
+        return next(err)
+    }
+}

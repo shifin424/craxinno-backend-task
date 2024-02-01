@@ -58,8 +58,9 @@ class UserRepository {
     }
 
     async findById(userId) {
+        console.log(userId)
         try {
-            return await User.findById(userId);
+            return await User.findById(userId).select('-password');;
         } catch (error) {
             throw new Error('Error finding user by ID');
         }
