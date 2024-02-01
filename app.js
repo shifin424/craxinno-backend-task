@@ -15,7 +15,7 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: ['http://localhost:5173','https://craxinno.onrender.com']
+    origin: ['http://localhost:5173','https://craxinno-technology.netlify.app']
   })
 );
 
